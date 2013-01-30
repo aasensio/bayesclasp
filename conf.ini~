@@ -1,0 +1,29 @@
+# Configuration File
+
+#***********************************
+# General information
+#***********************************
+[General]
+Number of parameters = 3
+File with the database = 'DATABASE/db_03.iqu'
+File with the observed line = 'OBSERVATIONS/test.obs'
+Output file root = 'RESULTS/test'
+
+#***********************************
+# Multinest behavior
+#***********************************
+[Multinest]
+Evidence tolerance = 0.5d0
+Maximum number of modes = 8
+Enlargement factor reduction = 0.8d0
+Number of live points = 800
+
+#***********************************
+# Parameters and functional form
+#***********************************
+[Parameters]
+Lower boundary = 0, 0, 0
+Upper boundary = 250, 180, 360
+Prior = 'U', 'U', 'D'
+Mean = 0, 0, 60.d0
+Sigma = 0, 0, 0
