@@ -24,7 +24,7 @@ pro doplot, fileObs, fileResult
 	close,2
 
 ; Read Stokes profiles obtained from samples from the posterior
-	openr,2,fileResult+'.stokesSamples',/f77
+	openr,2,fileResult+'.stokesSamples'
 	nStokes = 0L
 	readu,2,nStokes
 	qu = dblarr(2*n,nStokes)

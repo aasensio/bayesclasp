@@ -331,7 +331,7 @@ contains
 		close(13)
 
 		open(unit=12,file=trim(adjustl(chain_analysis%filename))//'.stokesSamples',&
-			action='write',status='replace',access='stream')
+			action='write',status='replace',form='stream')
 
 ! The two last are the MAP profiles and the estimated one
 		write(12) chain_analysis%nlength
