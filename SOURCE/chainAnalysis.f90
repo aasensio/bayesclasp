@@ -114,6 +114,11 @@ contains
 		n = (xmax-xmin) / step
 		step = (xmax-xmin) / float(n)
 
+		if (n > 500) then
+			n = 500
+			step = (xmax-xmin) / n
+		endif
+
 ! Variables
 		allocate(x(n))
 		allocate(yGauss(n))

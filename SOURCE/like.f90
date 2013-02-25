@@ -60,7 +60,7 @@ contains
 ! Likelihood function
 !-----------------------------------------------------------------------
 	subroutine slikelihood(Cube,slhood)              
-	real(kind=8) :: Cube(nest_nPar),slhood,priorP
+	real(kind=8) :: Cube(nest_nPar),slhood,logpriorP
 	real(kind=8) :: temp(sdim),dist,loclik, sigma, xi, L
 	integer :: i,j
 
@@ -68,18 +68,21 @@ contains
 		Cube = (prior%ranges(:,2)-prior%ranges(:,1))*Cube + prior%ranges(:,1)
 
 ! Compute the priors
-		priorP = 1.d0
+		logpriorP = 0.d0
 
 		do i = 1, sdim
 			if (prior%typ(i) == 'U') then
-				priorP = priorP / (prior%ranges(i,2) - prior%ranges(i,1))
+				logpriorP = logpriorP - log(prior%ranges(i,2) - prior%ranges(i,1))
 			endif
 			if (prior%typ(i) == 'J') then
-				priorP = priorP / (Cube(i) * log(prior%ranges(i,2)/prior%ranges(i,1)))
+				logpriorP = logpriorP - log(Cube(i) * log(prior%ranges(i,2)/prior%ranges(i,1)))
 			endif
 			if (prior%typ(i) == 'D') then
-				priorP = 1.d0
+				logpriorP = logpriorP
 				Cube(i) = prior%mu(i)
+			endif
+			if (prior%typ(i) == 'G') then
+				logpriorP = logpriorP - (Cube(i) - prior%mu(i))**2 / (2.d0*prior%sigma(i)**2)
 			endif
 		enddo
 		
@@ -91,7 +94,7 @@ contains
 
 
 ! Add the log-prior to the log-likelihood
-		slhood = slhood + log(priorP)
+		slhood = slhood + logpriorP
 
 ! Save the parameters that give the best likelihood
 		if (slhood > maxslhood) then

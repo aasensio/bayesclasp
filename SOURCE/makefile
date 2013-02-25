@@ -2,12 +2,12 @@
 
 # Select compiler
 # Intel Fortran compiler
-# COMPILER = ifort
-# OPTIONS = -c -O3
+COMPILER = ifort
+OPTIONS = -c -O3
 
 # GFortran
-COMPILER = gfortran
-OPTIONS = -c -frecord-marker=4 -ffree-form
+#COMPILER = gfortran
+#OPTIONS = -c -frecord-marker=4 -ffree-form
 
 
 NESTED_LIB = NESTED
